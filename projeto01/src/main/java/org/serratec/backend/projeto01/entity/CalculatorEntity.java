@@ -8,7 +8,7 @@ public class CalculatorEntity {
 	
 	private String operador;
 
-	public CalculatorEntity(Integer number1, Integer number2) {
+	private CalculatorEntity(Integer number1, Integer number2) {
 		super();
 		this.number1 = number1;
 		this.number2 = number2;

@@ -34,8 +34,8 @@ public class CalculatorController {
 		return service.getAll();
 	}
 	
-	@GetMapping("/procurar/{number1}")
-	public CalculatorEntity procurar(@PathVariable Integer number1) {
+	@GetMapping("/procurar/{number1}/{number2}")
+	public CalculatorEntity procurar(@PathVariable Integer number1 , @PathVariable Integer number2) {
 		return service.procurar(number1);
 	}
 
