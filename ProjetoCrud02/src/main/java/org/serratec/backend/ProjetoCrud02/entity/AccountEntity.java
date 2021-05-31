@@ -1,6 +1,8 @@
 package org.serratec.backend.ProjetoCrud02.entity;
 
 public class AccountEntity {
+	
+	private Long id;
 
 	private Integer numero;
 

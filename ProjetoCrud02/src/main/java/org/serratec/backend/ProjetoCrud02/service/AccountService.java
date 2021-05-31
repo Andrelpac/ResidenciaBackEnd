@@ -31,7 +31,7 @@ public class AccountService {
 	public void create(AccountEntity account) {
 		account.setNumero(numero);
 		lista.add(account);
-		if(account.getSaldo() == null) {
+		if (account.getSaldo() == null) {
 			account.setSaldo(0.0);
 		}
 		numero++;
@@ -57,14 +57,15 @@ public class AccountService {
 //		}
 	}
 
-	public AccountEntity updateSaldo(Integer numero, OperationEntity operation) throws AccountNotFoundException, SaldoInsuficienteException {
+	public AccountEntity updateSaldo(Integer numero, OperationEntity operation)
+			throws AccountNotFoundException, SaldoInsuficienteException {
 		AccountEntity accountEntity = getByNumber(numero);
 		switch (operation.getOperacao()) {
 		case CREDITO:
 			accountEntity.setSaldo(accountEntity.getSaldo() + operation.getValor());
 			break;
 		case DEBITO:
-			if(accountEntity.getSaldo() < operation.getValor()) {
+			if (accountEntity.getSaldo() < operation.getValor()) {
 				throw new SaldoInsuficienteException("Você não tem saldo suficiente");
 			}
 			accountEntity.setSaldo(accountEntity.getSaldo() - operation.getValor());
