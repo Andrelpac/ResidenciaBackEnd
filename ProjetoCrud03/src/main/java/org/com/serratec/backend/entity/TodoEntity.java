@@ -26,12 +26,6 @@ public class TodoEntity {
 	@Column(name = "DATA")
 	private Date date;
 
-	public TodoEntity(Long id, String name, String description) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-	}
 
 	public Long getId() {
 		return id;
@@ -56,5 +50,15 @@ public class TodoEntity {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	
+	
 
 }

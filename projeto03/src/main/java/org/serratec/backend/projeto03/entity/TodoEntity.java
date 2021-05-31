@@ -8,6 +8,10 @@ public class TodoEntity {
 
 	private String description;
 
+	public TodoEntity() {
+
+	}
+
 	public TodoEntity(Integer id, String name, String description) {
 		super();
 		this.id = id;
