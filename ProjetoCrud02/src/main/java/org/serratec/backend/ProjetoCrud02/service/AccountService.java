@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.serratec.backend.ProjetoCrud02.entity.AccountEntity;
 import org.serratec.backend.ProjetoCrud02.entity.OperationEntity;
+import org.serratec.backend.ProjetoCrud02.exceptions.AccountNotFoundException;
+import org.serratec.backend.ProjetoCrud02.exceptions.SaldoInsuficienteException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,32 +19,34 @@ public class AccountService {
 		return lista;
 	}
 
-	public AccountEntity getByNumber(Integer numero) {
+	public AccountEntity getByNumber(Integer numero) throws AccountNotFoundException {
 		for (AccountEntity accountEntity : lista) {
 			if (accountEntity.getNumero() == numero) {
 				return accountEntity;
 			}
 		}
-		System.out.println("Não achei nenhuma conta");
-		return null;
+		throw new AccountNotFoundException("Não existe conta com esse Id.");
 	}
 
 	public void create(AccountEntity account) {
 		account.setNumero(numero);
 		lista.add(account);
+		if(account.getSaldo() == null) {
+			account.setSaldo(0.0);
+		}
 		numero++;
 	}
 
-	public AccountEntity update(Integer numero, AccountEntity account) {
+	public AccountEntity update(Integer numero, AccountEntity account) throws AccountNotFoundException {
 		for (AccountEntity accountEntity : lista) {
 			if (accountEntity.getNumero() == numero) {
 				if (account.getNome() != null) {
 					accountEntity.setNome(account.getNome());
+					return accountEntity;
 				}
 			}
 		}
-		System.out.println("Nenhuma conta encontrada");
-		return null;
+		throw new AccountNotFoundException("Não existe conta com esse Id.");
 
 //		AccountEntity accountEntity = getByNumber(numero);
 //		if (accountEntity != null) {
@@ -53,25 +57,24 @@ public class AccountService {
 //		}
 	}
 
-	public AccountEntity updateSaldo(Integer numero, OperationEntity operation) {
+	public AccountEntity updateSaldo(Integer numero, OperationEntity operation) throws AccountNotFoundException, SaldoInsuficienteException {
 		AccountEntity accountEntity = getByNumber(numero);
-		if (accountEntity != null) {
-			switch (operation.getOperacao()) {
-			case CREDITO:
-				accountEntity.setSaldo(accountEntity.getSaldo() + operation.getValor());
-				break;
-			case DEBITO:
-				accountEntity.setSaldo(accountEntity.getSaldo() - operation.getValor());
-				break;
+		switch (operation.getOperacao()) {
+		case CREDITO:
+			accountEntity.setSaldo(accountEntity.getSaldo() + operation.getValor());
+			break;
+		case DEBITO:
+			if(accountEntity.getSaldo() < operation.getValor()) {
+				throw new SaldoInsuficienteException("Você não tem saldo suficiente");
 			}
+			accountEntity.setSaldo(accountEntity.getSaldo() - operation.getValor());
+			break;
 		}
 		return accountEntity;
 	}
-	
-	public void delete(Integer numero) {
+
+	public void delete(Integer numero) throws AccountNotFoundException {
 		AccountEntity accountEntity = getByNumber(numero);
-		if(accountEntity != null) {
-			lista.remove(accountEntity);
-		}
+		lista.remove(accountEntity);
 	}
 }
