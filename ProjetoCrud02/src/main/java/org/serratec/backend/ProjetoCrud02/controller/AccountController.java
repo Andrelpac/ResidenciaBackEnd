@@ -31,9 +31,9 @@ public class AccountController {
 		return new ResponseEntity<List<AccountEntity>>(service.getAll(), HttpStatus.OK);
 	}
 	
-	@GetMapping("/{numero}")
-	public ResponseEntity<AccountEntity> findByNumber(@PathVariable Integer numero) throws AccountNotFoundException {
-		return new ResponseEntity<AccountEntity>(service.getByNumber(numero),HttpStatus.OK);
+	@GetMapping("/{id}")
+	public ResponseEntity<AccountEntity> findByNumber(@PathVariable Long id) throws AccountNotFoundException {
+		return new ResponseEntity<AccountEntity>(service.getById(id),HttpStatus.OK);
 	}
 
 	@PostMapping
@@ -42,19 +42,19 @@ public class AccountController {
 		return new ResponseEntity<String>("Criado com sucesso", HttpStatus.CREATED);
 	}
 	
-	@PutMapping("/{numero}")
-	public ResponseEntity<AccountEntity> update(@PathVariable Integer numero, @RequestBody AccountEntity conta) throws AccountNotFoundException {
-		return new ResponseEntity<AccountEntity>(service.update(numero, conta),HttpStatus.OK);
+	@PutMapping("/{id}")
+	public ResponseEntity<AccountEntity> update(@PathVariable  Long id, @RequestBody AccountEntity conta) throws AccountNotFoundException {
+		return new ResponseEntity<AccountEntity>(service.update(id, conta),HttpStatus.OK);
 	}
 	
-	@PostMapping("/{numero}/operacao")
-	public ResponseEntity<AccountEntity>operation(@PathVariable Integer numero, @RequestBody OperationEntity operacao) throws AccountNotFoundException, SaldoInsuficienteException {
-		return new ResponseEntity<AccountEntity>(service.updateSaldo(numero, operacao),HttpStatus.OK);
+	@PostMapping("/{id}/operacao")
+	public ResponseEntity<AccountEntity>operation(@PathVariable  Long id, @RequestBody OperationEntity operacao) throws AccountNotFoundException, SaldoInsuficienteException {
+		return new ResponseEntity<AccountEntity>(service.updateSaldo(id, operacao),HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/{numero}")
-	public ResponseEntity<String> delete(@PathVariable Integer numero) throws AccountNotFoundException {
-		service.delete(numero);
+	@DeleteMapping("/{id}")
+	public ResponseEntity<String> delete(@PathVariable  Long id) {
+		service.delete(id);
 		return new ResponseEntity<String>("Deletado com sucesso", HttpStatus.OK);
 	}
 }
