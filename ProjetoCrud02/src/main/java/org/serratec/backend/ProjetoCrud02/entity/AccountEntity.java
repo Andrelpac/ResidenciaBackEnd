@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "Conta")
@@ -15,23 +17,17 @@ public class AccountEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(unique = true, length = 6)
+	@Column(unique = true)
 	private Integer numero;
 
-	@Column(nullable = false)
+	@NotNull
+	@Size(min = 3, max = 10)
 	private String nome;
 
 	private Double saldo;
 
 	public AccountEntity() {
 
-	}
-
-	public AccountEntity(Integer numero, String nome, Double saldo) {
-		super();
-		this.numero = numero;
-		this.nome = nome;
-		this.saldo = saldo;
 	}
 
 	public Integer getNumero() {
@@ -56,6 +52,14 @@ public class AccountEntity {
 
 	public void setSaldo(Double saldo) {
 		this.saldo = saldo;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }

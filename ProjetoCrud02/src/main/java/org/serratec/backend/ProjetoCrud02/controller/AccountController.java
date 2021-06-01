@@ -2,6 +2,9 @@ package org.serratec.backend.ProjetoCrud02.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.serratec.backend.ProjetoCrud02.dto.AccountDTO;
 import org.serratec.backend.ProjetoCrud02.entity.AccountEntity;
 import org.serratec.backend.ProjetoCrud02.entity.OperationEntity;
 import org.serratec.backend.ProjetoCrud02.exceptions.AccountNotFoundException;
@@ -31,9 +34,9 @@ public class AccountController {
 		return new ResponseEntity<List<AccountEntity>>(service.getAll(), HttpStatus.OK);
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<AccountEntity> findByNumber(@PathVariable Long id) throws AccountNotFoundException {
-		return new ResponseEntity<AccountEntity>(service.getById(id),HttpStatus.OK);
+	@GetMapping("/{nome}")
+	public ResponseEntity<List<AccountEntity>> findByNumber(@PathVariable String nome) throws AccountNotFoundException {
+		return new ResponseEntity<List<AccountEntity>>(service.getByName(nome),HttpStatus.OK);
 	}
 
 	@PostMapping
@@ -43,13 +46,13 @@ public class AccountController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<AccountEntity> update(@PathVariable  Long id, @RequestBody AccountEntity conta) throws AccountNotFoundException {
-		return new ResponseEntity<AccountEntity>(service.update(id, conta),HttpStatus.OK);
+	public ResponseEntity<AccountDTO> update(@PathVariable  Long id, @RequestBody AccountEntity conta) throws AccountNotFoundException {
+		return new ResponseEntity<AccountDTO>(service.update(id, conta),HttpStatus.OK);
 	}
 	
 	@PostMapping("/{id}/operacao")
-	public ResponseEntity<AccountEntity>operation(@PathVariable  Long id, @RequestBody OperationEntity operacao) throws AccountNotFoundException, SaldoInsuficienteException {
-		return new ResponseEntity<AccountEntity>(service.updateSaldo(id, operacao),HttpStatus.OK);
+	public ResponseEntity<AccountDTO>operation(@PathVariable  Long id, @RequestBody OperationEntity operacao) throws AccountNotFoundException, SaldoInsuficienteException {
+		return new ResponseEntity<AccountDTO>(service.updateSaldo(id, operacao),HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
