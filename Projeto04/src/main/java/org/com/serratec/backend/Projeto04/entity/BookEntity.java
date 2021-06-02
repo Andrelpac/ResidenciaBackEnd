@@ -1,11 +1,15 @@
 package org.com.serratec.backend.Projeto04.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -35,6 +39,13 @@ public class BookEntity {
 	@Past
 //	@Temporal(TemporalType.DATE)
 	private LocalDate data;
+	
+	@ManyToOne
+	@JoinColumn(referencedColumnName = "id")
+	private CategoriaEntity categoria;
+	
+	@ManyToMany(mappedBy = "books")
+	private List<AutorEntity> autores;
 	
 	public Long getId() {
 		return id;

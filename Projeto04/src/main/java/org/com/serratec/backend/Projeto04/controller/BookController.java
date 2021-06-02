@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.com.serratec.backend.Projeto04.dto.BookDTO;
+import org.com.serratec.backend.Projeto04.entity.CategoriaEntity;
 import org.com.serratec.backend.Projeto04.exceptions.BookNotFoundException;
 import org.com.serratec.backend.Projeto04.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,12 @@ public class BookController {
 	public ResponseEntity<List<BookDTO>> getAll(
 			@RequestParam(name = "ordenar", required = false, defaultValue = "id") String ordem ) {
 		return new ResponseEntity<List<BookDTO>>(service.findAll(ordem), HttpStatus.OK);
+	}
+	
+	@GetMapping("/categoria")
+	public ResponseEntity<List<CategoriaEntity>> get(
+			@RequestParam(name = "ordenar", required = false, defaultValue = "id") String ordem ) {
+		return new ResponseEntity<List<CategoriaEntity>>(service.findAll(), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")

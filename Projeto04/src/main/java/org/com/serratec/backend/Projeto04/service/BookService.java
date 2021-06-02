@@ -3,15 +3,15 @@ package org.com.serratec.backend.Projeto04.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.com.serratec.backend.Projeto04.dto.BookDTO;
 import org.com.serratec.backend.Projeto04.entity.BookEntity;
+import org.com.serratec.backend.Projeto04.entity.CategoriaEntity;
 import org.com.serratec.backend.Projeto04.exceptions.BookNotFoundException;
 import org.com.serratec.backend.Projeto04.mapper.BookMapper;
+import org.com.serratec.backend.Projeto04.repository.CategoryRepository;
 import org.com.serratec.backend.Projeto04.respository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,10 +20,16 @@ public class BookService {
 	@Autowired
 	BookRepository repository;
 	
+	@Autowired
+	CategoryRepository repositoryCategory;
 	
 	@Autowired
 	BookMapper mapper;
 
+	
+	public List<CategoriaEntity> findAll() {
+		return repositoryCategory.findAll();
+	}
 	public List<BookDTO> findAll(String ordem) {
 		List<BookEntity> lista = repository.findCustom(ordem);
 		List<BookDTO> listaDTO = new ArrayList<BookDTO>();
