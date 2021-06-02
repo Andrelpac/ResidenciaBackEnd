@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -30,7 +31,7 @@ public class AccountController {
 	AccountService service;
 	
 	@GetMapping
-	public ResponseEntity<List<AccountEntity>> findAll(){
+	public ResponseEntity<List<AccountEntity>> findAll(@RequestParam(required = false, defaultValue = "id")){
 		return new ResponseEntity<List<AccountEntity>>(service.getAll(), HttpStatus.OK);
 	}
 	

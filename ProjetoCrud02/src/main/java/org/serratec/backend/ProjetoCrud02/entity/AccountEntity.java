@@ -9,6 +9,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.data.jpa.repository.Temporal;
+
 @Entity
 @Table(name = "Conta")
 public class AccountEntity {
@@ -24,6 +26,7 @@ public class AccountEntity {
 	@Size(min = 3, max = 10)
 	private String nome;
 
+	@Temporal()
 	private Double saldo;
 
 	public AccountEntity() {
