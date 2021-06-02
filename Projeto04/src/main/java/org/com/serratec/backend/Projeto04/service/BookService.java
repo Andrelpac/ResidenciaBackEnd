@@ -25,7 +25,7 @@ public class BookService {
 	BookMapper mapper;
 
 	public List<BookDTO> findAll(String ordem) {
-		List<BookEntity> lista = repository.findAll(Sort.by(ordem));
+		List<BookEntity> lista = repository.findCustom(ordem);
 		List<BookDTO> listaDTO = new ArrayList<BookDTO>();
 		for (BookEntity listaEntity : lista) {
 			listaDTO.add(mapper.toDTO(listaEntity));
