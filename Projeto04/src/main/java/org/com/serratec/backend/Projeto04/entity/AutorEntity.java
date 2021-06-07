@@ -23,7 +23,7 @@ public class AutorEntity {
 	
 	@ManyToMany
 	@JoinTable
-	(joinColumns = @JoinColumn(referencedColumnName = "id"),
+	(joinColumns = @JoinColumn(referencedColumnName = "id"), 
 	inverseJoinColumns = @JoinColumn(referencedColumnName = "id"))
 	private List<BookEntity> books;
 }

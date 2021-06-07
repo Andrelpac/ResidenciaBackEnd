@@ -41,7 +41,6 @@ public class BookEntity {
 	private LocalDate data;
 	
 	@ManyToOne
-	@JoinColumn(referencedColumnName = "id")
 	private CategoriaEntity categoria;
 	
 	@ManyToMany(mappedBy = "books")
