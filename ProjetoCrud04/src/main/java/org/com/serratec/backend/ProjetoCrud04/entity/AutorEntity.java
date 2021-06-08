@@ -22,13 +22,15 @@ public class AutorEntity {
 
 	private String nome;
 
-	@JsonIgnore
-	@ManyToMany(mappedBy = "autores")
-	private List<LivroEntity> livros;
+//	@ManyToMany(mappedBy = "autores")
+//	private List<LivroEntity> livros;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "autor")
 	private List<AddressEntity> enderecos;
+
+	@OneToMany(mappedBy = "autor")
+	private List<LivroAutor> livros;
 
 	public Integer getId() {
 		return id;
@@ -46,11 +48,11 @@ public class AutorEntity {
 		this.nome = nome;
 	}
 
-	public List<LivroEntity> getLivros() {
+	public List<LivroAutor> getLivros() {
 		return livros;
 	}
 
-	public void setLivros(List<LivroEntity> livros) {
+	public void setLivros(List<LivroAutor> livros) {
 		this.livros = livros;
 	}
 

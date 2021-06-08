@@ -6,8 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import org.springframework.context.annotation.Bean;
-
 @Entity
 public class AddressEntity {
 
@@ -53,5 +51,6 @@ public class AddressEntity {
 	public void setAutor(AutorEntity autor) {
 		this.autor = autor;
 	}
-
+	
+	
 }

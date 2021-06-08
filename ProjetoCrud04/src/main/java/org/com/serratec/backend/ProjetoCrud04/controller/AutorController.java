@@ -2,6 +2,9 @@ package org.com.serratec.backend.ProjetoCrud04.controller;
 
 import java.util.List;
 
+import javax.mail.MessagingException;
+
+import org.com.serratec.backend.ProjetoCrud04.dto.AddressDTO;
 import org.com.serratec.backend.ProjetoCrud04.dto.AutorDTO;
 import org.com.serratec.backend.ProjetoCrud04.entity.AddressEntity;
 import org.com.serratec.backend.ProjetoCrud04.entity.AutorEntity;
@@ -35,8 +38,13 @@ public class AutorController {
 	}
 	
 	@PostMapping
-	public AutorEntity create(@RequestBody AutorDTO dto) {
+	public String create(@RequestBody AutorDTO dto) throws MessagingException {
 		return autor.create(dto);
+	}
+	
+	@PostMapping("/outroaddress")
+	public AddressEntity create2(@RequestBody AddressDTO dto) {
+		return address.addNewAddress(dto);
 	}
 
 }

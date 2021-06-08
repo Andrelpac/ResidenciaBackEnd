@@ -6,8 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,12 +24,12 @@ public class LivroEntity {
 //	@JoinColumn(name = "categoria_id", referencedColumnName = "id")
 	private CategoriaEntity categoria;
 	
-	@ManyToMany
+	@OneToMany(mappedBy = "livro")
 //	@JoinTable(name = "livro_autor",joinColumns = 
 //	@JoinColumn(name = "livro", referencedColumnName = "id"),
 //	inverseJoinColumns = 
 //	@JoinColumn(name = "autor", referencedColumnName = "id"))
-	private List<AutorEntity> autores;
+	private List<LivroAutor> autores;
 
 	public Integer getId() {
 		return id;
@@ -55,12 +55,13 @@ public class LivroEntity {
 		this.categoria = categoria;
 	}
 
-	public List<AutorEntity> getAutores() {
+	public List<LivroAutor> getAutores() {
 		return autores;
 	}
 
-	public void setAutores(List<AutorEntity> autores) {
+	public void setAutores(List<LivroAutor> autores) {
 		this.autores = autores;
 	}
-	
+
+
 }
