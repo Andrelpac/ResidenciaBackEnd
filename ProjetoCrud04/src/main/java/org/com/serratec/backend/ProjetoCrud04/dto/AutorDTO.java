@@ -5,6 +5,8 @@ public class AutorDTO {
 	private String nome;
 
 	private String Cep;
+	
+	private String senha;
 
 	public String getNome() {
 		return nome;
@@ -21,6 +23,12 @@ public class AutorDTO {
 	public void setCep(String cep) {
 		Cep = cep;
 	}
-	
-	
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 }

@@ -22,6 +22,9 @@ public class AutorEntity {
 
 	private String nome;
 
+	private String senha;
+	
+
 //	@ManyToMany(mappedBy = "autores")
 //	private List<LivroEntity> livros;
 
@@ -62,6 +65,19 @@ public class AutorEntity {
 
 	public void setEnderecos(List<AddressEntity> enderecos) {
 		this.enderecos = enderecos;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+
+	@Override
+	public String toString() {
+		return "AutorEntity [id=" + id + ", nome=" + nome + ", senha=" + senha;
 	}
 
 }

@@ -11,6 +11,7 @@ import org.com.serratec.backend.ProjetoCrud04.entity.AutorEntity;
 import org.com.serratec.backend.ProjetoCrud04.repository.AutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,6 +29,9 @@ public class AutorService {
 	@Value("${body.mail}")
 	String body;
 	
+	@Autowired
+	BCryptPasswordEncoder bCrypt;
+
 	
 	public AutorEntity getById(Integer id) {
 		Optional<AutorEntity> autor = repository.findById(id);
@@ -41,9 +45,10 @@ public class AutorService {
 	public String create(AutorDTO dto) throws MessagingException {
 		AutorEntity entity = new AutorEntity();
 		entity.setNome(dto.getNome());
+		entity.setSenha(dto.getSenha());
 		AutorEntity autorSaved = repository.save(entity);
+		repository.findByNome(autorSaved.getNome());
 		addressService.create(dto.getCep(), autorSaved);
 		return mailConfig.sendMail("andre.caetano@best2bee.com.br", "teste", body);
 	}
-
 }
