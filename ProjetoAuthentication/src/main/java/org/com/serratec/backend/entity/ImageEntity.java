@@ -1,6 +1,5 @@
 package org.com.serratec.backend.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,20 +7,16 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 
-import org.hibernate.annotations.Type;
-
 @Entity
-public class Imagem {
+public class ImageEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column
-	private String name;
+	private String nome;
 
-	@Column
-	private String mimetype;
+	private String mimeType;
 
 	@Lob
 	private byte[] data;
@@ -37,20 +32,20 @@ public class Imagem {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public String getMimetype() {
-		return mimetype;
+	public String getMimeType() {
+		return mimeType;
 	}
 
-	public void setMimetype(String mimetype) {
-		this.mimetype = mimetype;
+	public void setMimeType(String mimeType) {
+		this.mimeType = mimeType;
 	}
 
 	public byte[] getData() {

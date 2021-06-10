@@ -26,8 +26,8 @@ public class ClientEntity {
 
 	private String cpf;
 
-	@OneToOne(mappedBy = "client")
-	private Imagem image;
+	@OneToOne
+	private ImageEntity image;
 
 	public Long getId() {
 		return id;
@@ -69,11 +69,11 @@ public class ClientEntity {
 		this.cpf = cpf;
 	}
 
-	public Imagem getImage() {
+	public ImageEntity getImage() {
 		return image;
 	}
 
-	public void setImage(Imagem image) {
+	public void setImage(ImageEntity image) {
 		this.image = image;
 	}
 

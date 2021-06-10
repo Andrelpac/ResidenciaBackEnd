@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.com.serratec.backend.entity.ClientDTO;
 import org.com.serratec.backend.entity.ClientEntity;
-import org.com.serratec.backend.entity.Imagem;
+import org.com.serratec.backend.entity.ImageEntity;
 import org.com.serratec.backend.service.ClientService;
 import org.com.serratec.backend.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,13 +34,14 @@ public class ClientController {
 		return service.getAll();
 	}
 	
-	@GetMapping(path = "client/{clientId}/image/")
-	public ResponseEntity<byte[]> getImage(@PathVariable Long clientId) {
-		Imagem image = imageService.getImage(clientId);
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("content-type", image.getMimetype());
-		headers.add("content-length", String.valueOf(image.getData().length));
-		return new ResponseEntity<>(image.getData(), headers, HttpStatus.OK);
+	
+	@GetMapping("/client/{clientId}/image")
+	public ResponseEntity<byte[]> getImage(@PathVariable Long clientId){
+		ImageEntity imagem = imageService.getImagem(clientId);
+		HttpHeaders header = new HttpHeaders();
+		header.add("content-length", String.valueOf(imagem.getData().length));
+		header.add("content-type", imagem.getMimeType());
+		return new ResponseEntity<byte[]>(imagem.getData(),header, HttpStatus.OK);
 	}
 	
 	@GetMapping("/client/{id}")
@@ -48,9 +49,9 @@ public class ClientController {
 		return service.getById(id);
 	}
 	
-	@PostMapping(path = "create")
-	public ClientDTO create(@RequestParam MultipartFile file, @RequestPart ClientEntity entity ) throws IOException {
-		return service.create(entity,file);
+	@PostMapping("/create")
+	public ClientDTO create(@RequestParam MultipartFile file , @RequestPart ClientEntity entity) throws IOException {
+		return service.create(entity, file);
 	}
 
 }

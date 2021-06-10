@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	JWTUtil jwtUtil;
 	
-	private static final String[] AUTH_WHITELIST = { "/create","**" };
+	private static final String[] AUTH_WHITELIST = { "/create", "**" };
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

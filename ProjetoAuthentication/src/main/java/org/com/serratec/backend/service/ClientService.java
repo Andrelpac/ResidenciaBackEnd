@@ -8,7 +8,6 @@ import java.util.Optional;
 import org.com.serratec.backend.entity.ClientDTO;
 import org.com.serratec.backend.entity.ClientEntity;
 import org.com.serratec.backend.repository.ClientRepository;
-import org.com.serratec.backend.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,20 +21,13 @@ public class ClientService {
 	ClientRepository repository;
 
 	@Autowired
-	ImageRepository imageRepository;
+	BCryptPasswordEncoder bCrypt;
 	
 	@Autowired
 	ImageService imageService;
-	
-	@Autowired
-	BCryptPasswordEncoder bCrypt;
 
-	public List<ClientEntity> getAll() {
-		return repository.findAll();
-	}
-
-	private ClientDTO addImageUrl(ClientEntity entity) {
-		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/client/{id}/image/")
+	public ClientDTO getImage(ClientEntity entity) {
+		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("client/{clientId}/image")
 				.buildAndExpand(entity.getId()).toUri();
 		ClientDTO client = new ClientDTO();
 		client.setCpf(entity.getCpf());
@@ -43,7 +35,10 @@ public class ClientService {
 		client.setUsername(entity.getUsername());
 		client.setUrl(uri.toString());
 		return client;
+	}
 
+	public List<ClientEntity> getAll() {
+		return repository.findAll();
 	}
 
 	public ClientEntity getById(Long id) {
@@ -51,11 +46,10 @@ public class ClientService {
 		return opt.get();
 	}
 
-
 	public ClientDTO create(ClientEntity entity, MultipartFile file) throws IOException {
 		entity.setSenha(bCrypt.encode(entity.getSenha()));
-		imageService.create(repository.save(entity),file);
-		return addImageUrl(entity);
+		ClientEntity entitySaved = repository.save(entity);
+		imageService.create(entitySaved, file);
+		return getImage(entitySaved);
 	}
-	
 }

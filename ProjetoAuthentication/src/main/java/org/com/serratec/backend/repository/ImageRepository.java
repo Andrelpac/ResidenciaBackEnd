@@ -1,10 +1,10 @@
 package org.com.serratec.backend.repository;
 
-import org.com.serratec.backend.entity.Imagem;
+import org.com.serratec.backend.entity.ImageEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ImageRepository extends JpaRepository<Imagem, Long>{
+public interface ImageRepository extends JpaRepository<ImageEntity, Long> {
 
-	Imagem findByClientId(Long id);
+	ImageEntity findByClientId(Long id);
 
 }

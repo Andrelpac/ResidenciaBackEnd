@@ -1,11 +1,11 @@
 package org.com.serratec.backend.entity;
 
 public class ClientDTO {
-	private String nome;
 
-	private String cpf;
-	private String username;
-	private String url;
+	String nome;
+	String cpf;
+	String username;
+	String url;
 
 	public String getNome() {
 		return nome;
